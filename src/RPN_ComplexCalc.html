@@ -1,0 +1,123 @@
+<!doctype html>
+	<html>
+	<head>
+  		<title>RPN-Calculator</title>
+  		<link rel="stylesheet" href="calculator.css">
+  		<meta charset="utf-8" />
+	</head>
+  	<body>
+		<script src="Complex.js"></script>
+  		<script src="Calculator.js"></script>
+  		<div class="titleWindow"> 
+			<h2>Calculator with Reverse Polish Notation (RPN)</h2>
+  		</div>
+
+  		<div class="calcWindow"> 
+			<form name="Calculator">
+			<table border="5" cellpadding="5" bgcolor="#E0E0E0">
+			<tr>
+		  	<td bgcolor="#C0C0C0"><input name="DisplayY" size="35" maxlength="25" style="text-align:right;font-weight: bold;" value="0.0000" readonly ></td>
+			</tr>
+			<tr>
+		  	<td bgcolor="#C0C0C0"><input name="DisplayX" size="35" maxlength="25" style="text-align:right;font-weight: bold;" value="0.0000" readonly></td>
+			</tr>
+		<tr>
+		  <td>
+		  <table>
+			<tr>
+			  <td width="50"><input type="radio" name="DegRad" id="Deg" value="Deg" checked="checked" onclick="calculate('delX')"><label style="text-align: center;">Deg</label></td>
+			  <td width="50"><input type="radio" name="DegRad" id="Rad" value="Rad" onclick="calculate('x<>y')"><label style="text-align: center;">Rad</label></td>
+			  <td width="50"><input type="radio" name="RecPol" id="Rec" value="Rec" checked="checked" onclick="calcRect()"><label style="text-align: center;">Rec</label></td>
+			  <td width="50"><input type="radio" name="RecPol" id="Pol" value="Pol" onclick="calcPolar()"><label style="text-align: center;">Pol</label></td>
+			</tr>  
+			<tr>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="delX" onclick="calculate('delX')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="prec" onclick="calculate('x<>y')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="x<>y" onclick="calculate('x<>y')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="Cplx" onclick="cplx()"></td>
+			</tr>
+			<tr>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="+/-" onclick="plusMinus()"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="y&#x02E3;" onclick="calculate('y^x')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="ln(x)" onclick="calculate('sqrt')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="1/x" onclick="calculate('1/x')"></td>
+			</tr>
+			<tr>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="&pi;" onclick="calculate('1/x')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="&#x0221A;" onclick="calculate('sqrt')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="e&#x02E3;" onclick="calculate('*')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="&divide;" onclick="calculate('/')"></td>
+			</tr>
+			<tr>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="7" onclick="add_to_display('7')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="8" onclick="add_to_display('8')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="9" onclick="add_to_display('9')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="*" onclick="calculate('*')"></td>
+			</tr>
+			<tr>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="4" onclick="add_to_display('4')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="5" onclick="add_to_display('5')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="6" onclick="add_to_display('6')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="-" onclick="calculate('-')"></td>
+			<tr>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="1" onclick="add_to_display('1')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="2" onclick="add_to_display('2')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="3" onclick="add_to_display('3')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="+" onclick="calculate('+')"></td>
+			</tr>
+			</tr>
+			<tr>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="0" onclick="add_to_display('0')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="." onclick="add_to_display('.')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="E" onclick="add_to_display('E')"></td>
+			  <td width="50"><input type="button" style="height:45px;width:70px;text-align: center;" value="Enter" onclick="enter()"></td>
+			</tr>
+			<tr>
+			   <td colspan="4" style="font-family: Arial; font-size: 12px; text-align: center;">
+			</tr>
+		  </table>
+		  </td>
+		</tr>
+	  </table>
+	  </form>
+	  </div>
+  	<h3>Calculate:</h3>
+  	<div class="mathWindow"> 
+  	   <math xmlns="http://www.w3.org/1998/Math/MathML">
+  	   <msqrt>
+         	<mo>(</mo>
+         	<mn>2</mn>
+         	<mo>+</mo>
+         	<mn>3</mn>
+         	<mo>)</mo>
+         	<mo>*</mo>
+         	<mo>(</mo>
+         	<mn>4</mn>
+         	<mo>+</mo>
+         	<mn>5</mn>
+         	<mo>)</mo>
+       </msqrt>   
+       <mo>+</mo>
+  	   <msqrt>
+         	<mo>(</mo>
+         	<mn>6</mn>
+         	<mo>+</mo>
+         	<mn>7</mn>
+         	<mo>)</mo>
+         	<mo>*</mo>
+         	<mo>(</mo>
+         	<mn>8</mn>
+         	<mo>+</mo>
+         	<mn>9</mn>
+         	<mo>)</mo>
+       </msqrt>  
+       <mo>=</mo>
+       <mn>21,5743</mn>
+       </math>
+   </div>
+  	<h3>Input:</h3>
+  	<div class="SolutionWindow"> 
+  		2 [Enter] 3 + 4 [Enter] 5 + * &radic; 6 [Enter] 7 + 8 [Enter] 9 + * &radic; +
+  	</div>
+  </body>
+</html>

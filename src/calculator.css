@@ -1,0 +1,41 @@
+body {
+    font-family: sans-serif;
+    font-size: 20px;
+} 	
+.titleWindow {
+  		margin: auto;
+  		width: 70vw;
+		display: flex;
+		justify-content: center;
+  		padding: 2px;
+ }
+.calcWindow {
+  		margin: auto;
+  		width: 70vw;
+		display: flex;
+		justify-content: center;
+  		border: 3px solid #73AD21;
+  		padding: 10px;
+}
+.mathWindow {
+  		margin: auto;
+  		width: 70vw;
+		display: flex;
+		justify-content: center;
+  		border: 3px solid #73AD21;
+  		padding: 10px;
+}
+.SolutionWindow {
+  		margin: auto;
+  		width: 70vw;
+		display: flex;
+		justify-content: center;
+ 		border: 3px solid #73AD21;
+  		padding: 10px;
+}
+label {
+    font-size: 12px;
+    font-weight: normal;
+    color: black;
+}
+
