@@ -112,6 +112,11 @@ function add_to_display(signToSet) {
 	window.document.Calculator.DisplayX.value = x.toString();
 	window.document.Calculator.DisplayY.value = y.toString();
 }
+		
+function showPrecDisplayValues() {
+	window.document.Calculator.DisplayX.value = x.toString(true);
+	window.document.Calculator.DisplayY.value = y.toString(true);
+}
  
  function checkDisplayInput(value)
  {
@@ -207,8 +212,6 @@ function calculate(op) {
 				else throw "Number too big";
 				break;
 			case "/":
-				console.log("x: ",x)
-				console.log("y: ",y)
 				if (checkResult(y.divide(x))) {
 					x = y.divide(x)
 				}
@@ -240,6 +243,23 @@ function calculate(op) {
 				}
 				else throw "Not a number";
 				break;
+			case "e^x":
+				let basis = new Complex(parseFloat(Math.E), parseFloat(0));
+				if (checkResult(x.YX(betrag(basis), phase(basis)))) {
+					x = x.YX(betrag(basis), phase(basis));
+				}
+				else throw "Number too big";
+				break;
+			case "ln":
+				if (checkResult(x.Ln(betrag(x)))) {
+					x = x.Ln(betrag(x))
+				}
+				else throw "Not a number";
+				break;
+             case "pi":
+                 stackShift()
+                 x = new Complex(Math.PI, 0.0, false)
+              	 break;
 			case "delX":
 				x = new Complex (parseFloat(0), parseFloat(0));
 				overrideFlag = true

@@ -4,7 +4,6 @@ class Complex {
         this.real = real;
         this.imag = imag;
         this.isPolar = pol;
-        this.precision = precision;
     }
 
     getReal() {
@@ -18,7 +17,7 @@ class Complex {
 //  Die Argument-Funktion (Winkel) siehe Wikipedia Komplexe Zahlen    
     arg() {
         if (this.imag != 0.0 || this.real > 0.0) {
-            return 2 * Math.atan2(this.imag, sqreal(this.real*this.real + this.imag*this.imag) + this.real)
+            return 2 * Math.atan2(this.imag, Math.sqrt(this.real*this.real + this.imag*this.imag) + this.real)
         }
         else if (this.imag == 0.0 && this.real < 0.0) {
             return Math.PI
@@ -41,7 +40,7 @@ class Complex {
     }
     
     Ln(betrag) {
-        return Complex(Math.log(betrag), this.arg(), false)
+        return new Complex(Math.log(betrag), this.arg(), false)
     }
 
 
@@ -65,16 +64,18 @@ class Complex {
         return new Complex((this.real * complexNumber.real + this.imag * complexNumber.imag)/this.divNenner(complexNumber.real, complexNumber.imag ), (this.imag * complexNumber.real - this.real * complexNumber.imag)/this.divNenner(complexNumber.real, complexNumber.imag ))
     }
 
-    toString(){
+    toString(precision = false){
 //		console.log("this.imag: ", this.imag.toFixed(4))
 //		console.log("this.real: ", this.real.toFixed(4))
+		let numLen = parseFloat(4)
+		if (precision) numLen = parseFloat(12)
 		if (this.imag == 0)
-			return this.real.toFixed(4);
+			return this.real.toFixed(numLen);
 		else {
 			if (this.isPolar)
-				return this.real.toFixed(4) + " \u2220" + this.imag.toFixed(4);
+				return this.real.toFixed(numLen) + " \u2220" + this.imag.toFixed(numLen);
 			else
-				return this.real.toFixed(4) + " i" + this.imag.toFixed(4);
+				return this.real.toFixed(numLen) + " i" + this.imag.toFixed(numLen);
 		}
     }
 
