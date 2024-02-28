@@ -1,7 +1,7 @@
 ## RPN Calculator for real and complex numbers
 <center>
 
-| Android                        |
+| Javascript                        |
 | :----------------------------- | 
 | ![](./docs/Calculator.png)| 
 
